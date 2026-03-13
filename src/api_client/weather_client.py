@@ -29,7 +29,7 @@ def _cache_key(city: str) -> str:
     normalized = city.strip().lower()
     return f"weather:{normalized}"
 
-def get_weather(city:str):
+def get_weather(city:list):
     cache_key = _cache_key(city)
     if redis_client is not None:
         try:

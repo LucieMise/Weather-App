@@ -1,15 +1,18 @@
 from fastapi import APIRouter
 from requests import session
 from sqlalchemy.orm import Session 
-
-
-
 from src.api_client.multiple_cities_weather_client import multiple_cities_weather
 from src.api_client.weather_client import get_weather
 from src.database.db import SessionLocal
 from src.database.models import Weather
+from src.scheduler.weather_scheduler import start_scheduler
+
 
 router = APIRouter()
+
+@router.on_event("startup")
+def startup_event():
+    start_scheduler()
 
 
 @router.get("/")
